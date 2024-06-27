@@ -1,7 +1,6 @@
 package com.guilherme.biblioteca.entities;
 
-import java.util.Date;
-
+import java.time.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,11 +19,11 @@ public class Aluguel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JsonFormat(pattern = "HH:mm:ss dd-MM-YYYY")
-    private Date dataLocacao;
+    @JsonFormat(pattern = "dd-MM-YYYY")
+    private LocalDate dataLocacao;
 
-    @JsonFormat(pattern = "HH:mm:ss dd-MM-YYYY")
-    private Date dataDevolucao;
+    @JsonFormat(pattern = "dd-MM-YYYY")
+    private LocalDate dataDevolucao;
 
     @ManyToOne
     @JoinColumn(name = "locatarioAluguel_id")
