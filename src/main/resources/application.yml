@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: "org.postgresql.Driver"
+    url: "jdbc:postgresql://localhost:5432/biblioteca"
+    username: "postgres"
+    password: "BaldoSucks2022"
+  jpa:
+    hibernate:
+      ddl-auto: create
