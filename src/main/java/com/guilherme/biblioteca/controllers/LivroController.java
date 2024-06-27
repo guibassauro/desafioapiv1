@@ -1,6 +1,5 @@
 package com.guilherme.biblioteca.controllers;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.guilherme.biblioteca.entities.Autor;
 import com.guilherme.biblioteca.entities.Livro;
+import com.guilherme.biblioteca.entities.requests.CreateLivroRequest;
 import com.guilherme.biblioteca.repositories.AutorRepository;
 import com.guilherme.biblioteca.repositories.LivroRepository;
 
@@ -48,15 +49,22 @@ public class LivroController {
 
     @PostMapping
     public ResponseEntity<Object> createLivro(
-        @RequestBody Livro createLivro
+        @RequestBody CreateLivroRequest createLivro
     ) {
+        List<Autor> autoresRequest = autorRepository.findAllById(createLivro.getAutoresIds());
+
         Livro novoLivro = new Livro(
             null,
             createLivro.getTitulo(),
             createLivro.getIsbn(),
             createLivro.getAnoPublicacao(),
-            Collections.emptyList()
+            autoresRequest
         );
+
+        autoresRequest.forEach(autor -> {
+            autor.addLivro(novoLivro);
+        });
+
 
         return ResponseEntity.ok(livroRepository.save(novoLivro));
     }

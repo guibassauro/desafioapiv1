@@ -27,7 +27,7 @@ public class Livro {
     @Column(nullable = false)
     private String anoPublicacao;
 
-    @ManyToMany(mappedBy = "livros", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "livros", cascade = {CascadeType.ALL})
     @JsonIgnoreProperties("livros")
     private List<Autor> autores;
 }

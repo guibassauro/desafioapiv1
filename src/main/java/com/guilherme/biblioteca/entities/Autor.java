@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "autor")
 public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,4 +38,8 @@ public class Autor {
     )
     @JsonIgnoreProperties("autores")
     private List<Livro> livros;
+
+    public void addLivro(final Livro livro){
+        this.livros.add(livro);
+    }
 }

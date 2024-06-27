@@ -2,6 +2,7 @@ package com.guilherme.biblioteca.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Collections;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,8 +42,8 @@ public class LocatarioController {
             createLocatario.getTelefone(),
             createLocatario.getEmail(),
             createLocatario.getNascimentoData(),
-            createLocatario.getCpf()
-            //Collections.emptyList()
+            createLocatario.getCpf(),
+            Collections.emptyList()
         );
 
         return ResponseEntity.ok(locatarioRepository.save(novoLocatario));
