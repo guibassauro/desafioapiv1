@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.guilherme.biblioteca.entities.Aluguel;
+import com.guilherme.biblioteca.entities.Livro;
 import com.guilherme.biblioteca.entities.Locatario;
 import com.guilherme.biblioteca.entities.requests.CreateAluguelRequest;
 import com.guilherme.biblioteca.entities.requests.UpdateAluguelRequest;
 import com.guilherme.biblioteca.repositories.AluguelRepository;
+import com.guilherme.biblioteca.repositories.LivroRepository;
 import com.guilherme.biblioteca.repositories.LocatarioRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ public class AluguelController {
     
     final AluguelRepository aluguelRepository;
     final LocatarioRepository locatarioRepository;
+    final LivroRepository livroRepository;
 
     @GetMapping
     public List<Aluguel> getAlugueis(){
@@ -47,13 +50,16 @@ public class AluguelController {
             return ResponseEntity.badRequest().body("Locatário não existe(Registre-o primeiro)");
         }
 
+        List<Livro> livrosRequest = livroRepository.findAllById(createAluguel.getLivros_id());
+
         LocalDate hoje = LocalDate.now();
 
         Aluguel novoAluguel = new Aluguel(
             null,
             hoje,
             hoje.plusDays(2),
-            existingLocatario.get()
+            existingLocatario.get(),
+            livrosRequest
         );
         
         return ResponseEntity.ok(aluguelRepository.save(novoAluguel));
@@ -73,9 +79,12 @@ public class AluguelController {
 
         Optional<Locatario> locatarioUpate = locatarioRepository.findById(updateAluguel.getLocatario_id());
 
+        List<Livro> livrosUpdate = livroRepository.findAllById(updateAluguel.getLivros_id());
+
         atualizaAluguel.setDataLocacao(updateAluguel.getDataLocacao());
         atualizaAluguel.setDataDevolucao(updateAluguel.getDataDevolucao());
         atualizaAluguel.setLocatario(locatarioUpate.get());
+        atualizaAluguel.setLivros(livrosUpdate);
 
         return ResponseEntity.ok(aluguelRepository.save(atualizaAluguel));
     }

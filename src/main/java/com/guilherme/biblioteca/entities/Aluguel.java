@@ -1,6 +1,7 @@
 package com.guilherme.biblioteca.entities;
 
 import java.time.*;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -26,9 +27,15 @@ public class Aluguel {
     private LocalDate dataDevolucao;
 
     @ManyToOne
-    @JoinColumn(name = "locatarioAluguel_id")
+    @JoinColumn(name = "locatario_id")
     @JsonIgnoreProperties("alugueis")
     private Locatario locatario;
     
-    
+    @OneToMany(mappedBy = "aluguel")
+    @JsonIgnoreProperties("alugueis")
+    private List<Livro> livros;
+
+    public void addLivro(final Livro livro){
+        this.livros.add(livro);
+    }
 }

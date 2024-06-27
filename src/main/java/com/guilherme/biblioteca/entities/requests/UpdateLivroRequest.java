@@ -16,4 +16,5 @@ public class UpdateLivroRequest {
     String anoPublicacao;
     @NonNull
     List<Long> autoresIds;
+    Long aluguel_id;
 }

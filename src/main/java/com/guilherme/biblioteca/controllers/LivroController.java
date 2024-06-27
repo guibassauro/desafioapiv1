@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.guilherme.biblioteca.entities.Aluguel;
 import com.guilherme.biblioteca.entities.Autor;
 import com.guilherme.biblioteca.entities.Livro;
 import com.guilherme.biblioteca.entities.requests.CreateLivroRequest;
 import com.guilherme.biblioteca.entities.requests.UpdateLivroRequest;
+import com.guilherme.biblioteca.repositories.AluguelRepository;
 import com.guilherme.biblioteca.repositories.AutorRepository;
 import com.guilherme.biblioteca.repositories.LivroRepository;
 
@@ -29,6 +31,7 @@ public class LivroController {
 
     final LivroRepository livroRepository;
     final AutorRepository autorRepository;
+    final AluguelRepository aluguelRepository;
     
     @GetMapping
     public List<Livro> getLivros(){
@@ -59,7 +62,8 @@ public class LivroController {
             createLivro.getTitulo(),
             createLivro.getIsbn(),
             createLivro.getAnoPublicacao(),
-            autoresRequest
+            autoresRequest,
+            null
         );
 
         autoresRequest.forEach(autor -> {
@@ -82,12 +86,18 @@ public class LivroController {
 
         Livro atualizaLivro = existeLivro.get();
 
+        Optional<Aluguel> aluguelUpdate = aluguelRepository.findById(updateLivro.getAluguel_id());
+
+        Aluguel atualizaAluguel = aluguelUpdate.get();
+
         List<Autor> autoresUpdate = autorRepository.findAllById(updateLivro.getAutoresIds());
+
 
         atualizaLivro.setTitulo(updateLivro.getTitulo());
         atualizaLivro.setIsbn(updateLivro.getIsbn());
         atualizaLivro.setAnoPublicacao(updateLivro.getAnoPublicacao());
         atualizaLivro.setAutores(autoresUpdate);
+        atualizaLivro.setAluguel(atualizaAluguel);
 
         /* Bug em atualização de autores -> Não é possível adicionar autores na atualização,
          * caso o autor seja removido, o livro fica sem autor obrigatoriamente, obrigado o

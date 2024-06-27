@@ -1,6 +1,7 @@
 package com.guilherme.biblioteca.entities.requests;
 
 import java.time.*;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateAluguelRequest {
-    private LocalDate dataLocacao = LocalDate.now();
-    private LocalDate dataDevolucao = dataLocacao.plusDays(2);
+    private LocalDate dataLocacao;
+    private LocalDate dataDevolucao;
     private Long locatario_id;
+    private List<Long> livros_id;
 }

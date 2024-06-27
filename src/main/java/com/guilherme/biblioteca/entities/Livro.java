@@ -26,7 +26,12 @@ public class Livro {
     @Column(nullable = false)
     private String anoPublicacao;
 
-    @ManyToMany(mappedBy = "livros", cascade = {CascadeType.ALL})
+    @ManyToMany(mappedBy = "livros")
     @JsonIgnoreProperties("livros")
     private List<Autor> autores;
+
+    @ManyToOne
+    @JoinColumn(name = "aluguel_id")
+    @JsonIgnoreProperties("livros")
+    private Aluguel aluguel;
 }
