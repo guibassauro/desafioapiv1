@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateLivroRequest {
+public class UpdateLivroRequest {
     String titulo;
     String isbn;
     String anoPublicacao;
