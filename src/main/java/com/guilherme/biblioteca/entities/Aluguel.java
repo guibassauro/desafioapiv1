@@ -32,10 +32,6 @@ public class Aluguel {
     private Locatario locatario;
     
     @OneToMany(mappedBy = "aluguel")
-    @JsonIgnoreProperties("alugueis")
+    @JsonIgnoreProperties("aluguel")
     private List<Livro> livros;
-
-    public void addLivro(final Livro livro){
-        this.livros.add(livro);
-    }
 }

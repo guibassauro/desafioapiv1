@@ -57,6 +57,10 @@ public class LivroController {
     ) {
         List<Autor> autoresRequest = autorRepository.findAllById(createLivro.getAutoresIds());
 
+        if(autoresRequest.isEmpty()){
+            return ResponseEntity.badRequest().body("Um livro precisa de um autor(registre-o primeiro)");
+        }
+
         Livro novoLivro = new Livro(
             null,
             createLivro.getTitulo(),

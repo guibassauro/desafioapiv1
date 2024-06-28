@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.guilherme.biblioteca.entities.Autor;
 import com.guilherme.biblioteca.repositories.AutorRepository;
+import com.guilherme.biblioteca.repositories.LivroRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class AutorController {
 
     final AutorRepository autorRepository;
+    final LivroRepository livroRepository;
 
     @GetMapping
     public List<Autor> listAutores(){

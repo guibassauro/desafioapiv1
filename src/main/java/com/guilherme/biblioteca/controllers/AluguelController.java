@@ -52,6 +52,10 @@ public class AluguelController {
 
         List<Livro> livrosRequest = livroRepository.findAllById(createAluguel.getLivros_id());
 
+        if(livrosRequest.isEmpty()){
+            return ResponseEntity.badRequest().body("O aluguel deve ter livros!");
+        }
+
         LocalDate hoje = LocalDate.now();
 
         Aluguel novoAluguel = new Aluguel(
@@ -61,6 +65,10 @@ public class AluguelController {
             existingLocatario.get(),
             livrosRequest
         );
+
+        livrosRequest.forEach(livro -> {
+            livro.addAluguel(novoAluguel);
+        });
         
         return ResponseEntity.ok(aluguelRepository.save(novoAluguel));
     }

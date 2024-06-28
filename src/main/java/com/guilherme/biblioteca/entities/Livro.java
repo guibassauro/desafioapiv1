@@ -34,4 +34,8 @@ public class Livro {
     @JoinColumn(name = "aluguel_id")
     @JsonIgnoreProperties("livros")
     private Aluguel aluguel;
+
+    public void addAluguel(final Aluguel aluguel){
+        this.aluguel = aluguel;
+    }
 }
