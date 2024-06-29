@@ -34,4 +34,8 @@ public class Aluguel {
     @OneToMany(mappedBy = "aluguel")
     @JsonIgnoreProperties("aluguel")
     private List<Livro> livros;
+
+    public void delLivro(final Aluguel aluguel){
+        this.livros.clear();
+    }
 }

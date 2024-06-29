@@ -38,4 +38,5 @@ public class Livro {
     public void addAluguel(final Aluguel aluguel){
         this.aluguel = aluguel;
     }
+    
 }

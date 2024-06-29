@@ -47,6 +47,19 @@ public class AutorController {
 
     }
 
+    @GetMapping("/livros/{id}")
+    public ResponseEntity<Object> livrosAutores(
+        @PathVariable Long id
+    ) {
+        Optional<Autor> autorExiste = autorRepository.findById(id);
+
+        if(autorExiste.isEmpty()){
+            return ResponseEntity.ok().body("Id de autor invalido");
+        } 
+
+        return ResponseEntity.ok().body(autorExiste.get().getLivros());
+    }
+
     @PostMapping
     public ResponseEntity<Object> createAutor(
         @RequestBody Autor createAutor
@@ -93,6 +106,10 @@ public class AutorController {
 
         if(existeAutor.isEmpty()){
             return ResponseEntity.notFound().build();
+        }
+
+        if(!existeAutor.get().getLivros().isEmpty()){
+            return ResponseEntity.ok().body("Só é possível deletar um autor que não tenha livros");
         }
 
         autorRepository.deleteById(id);

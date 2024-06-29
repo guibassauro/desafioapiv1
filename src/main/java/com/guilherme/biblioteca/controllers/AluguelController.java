@@ -39,6 +39,19 @@ public class AluguelController {
         return aluguelRepository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getAluguelByLocatario(
+        @PathVariable Long id
+    ) {
+        Optional<Locatario> existeLocatario = locatarioRepository.findById(id);
+
+        if(existeLocatario.isEmpty()){
+            return ResponseEntity.badRequest().body("Id de locatario inválida");
+        }
+
+        return ResponseEntity.ok().body(existeLocatario.get().getAlugueis());
+    }
+
     @PostMapping
     public ResponseEntity<Object> createAluguel(
         @RequestBody CreateAluguelRequest createAluguel
@@ -102,13 +115,23 @@ public class AluguelController {
         @PathVariable Long id
     ) {
         Optional<Aluguel> existeAluguel = aluguelRepository.findById(id);
+        Aluguel aluguel = new Aluguel();
 
         if(existeAluguel.isEmpty()){
             return ResponseEntity.notFound().build();
+        } else{
+            aluguel = existeAluguel.get();
         }
 
-        aluguelRepository.deleteById(id);
+        aluguel.delLivro(aluguel);
+        aluguel.setLocatario(null);
+        aluguelRepository.save(aluguel);
 
-        return ResponseEntity.ok().body("Aluguel deletado");
+        return ResponseEntity.ok().body(aluguel);
+        
+        //aluguelRepository.deleteById(id);
+
+        //return ResponseEntity.ok().body("Aluguel deletado");
+
     }
 }

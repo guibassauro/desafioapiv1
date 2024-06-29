@@ -122,6 +122,10 @@ public class LivroController {
         if(existeLivro.isEmpty()){
             return ResponseEntity.notFound().build();
         }
+        
+        if(existeLivro.get().getAluguel() != null){
+            return ResponseEntity.ok().body("Não é possível deletar um lívro alugado");
+        }
 
         livroRepository.deleteById(id);
 

@@ -81,6 +81,11 @@ public class LocatarioController {
             return ResponseEntity.notFound().build();
         }
 
+        if(!existeLocatario.get().getAlugueis().isEmpty()){
+            return ResponseEntity.ok().body
+            ("Só é possível deletar um locatário que não tenha livros a serem entregues.");
+        }
+
         locatarioRepository.deleteById(id);
 
         return ResponseEntity.noContent().build();
