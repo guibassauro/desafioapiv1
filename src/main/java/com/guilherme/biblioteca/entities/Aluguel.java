@@ -31,7 +31,7 @@ public class Aluguel {
     @JsonIgnoreProperties("alugueis")
     private Locatario locatario;
     
-    @OneToMany(mappedBy = "aluguel")
+    @OneToMany(mappedBy = "aluguel", orphanRemoval = true, cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("aluguel")
     private List<Livro> livros;
 

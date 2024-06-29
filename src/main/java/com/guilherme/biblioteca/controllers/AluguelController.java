@@ -115,23 +115,18 @@ public class AluguelController {
         @PathVariable Long id
     ) {
         Optional<Aluguel> existeAluguel = aluguelRepository.findById(id);
-        Aluguel aluguel = new Aluguel();
 
         if(existeAluguel.isEmpty()){
             return ResponseEntity.notFound().build();
-        } else{
-            aluguel = existeAluguel.get();
         }
 
-        aluguel.delLivro(aluguel);
+        /*aluguel.delLivro(aluguel);
         aluguel.setLocatario(null);
-        aluguelRepository.save(aluguel);
-
-        return ResponseEntity.ok().body(aluguel);
+        aluguelRepository.save(aluguel);*/
         
-        //aluguelRepository.deleteById(id);
+        aluguelRepository.deleteById(id);
 
-        //return ResponseEntity.ok().body("Aluguel deletado");
+        return ResponseEntity.ok().body("Aluguel deletado");
 
     }
 }

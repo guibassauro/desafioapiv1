@@ -1,6 +1,7 @@
 package com.guilherme.biblioteca.entities;
 
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class Livro {
     @Column(nullable = false)
     private String anoPublicacao;
 
-    @ManyToMany(mappedBy = "livros")
+    @ManyToMany(mappedBy = "livros", cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("livros")
     private List<Autor> autores;
 
