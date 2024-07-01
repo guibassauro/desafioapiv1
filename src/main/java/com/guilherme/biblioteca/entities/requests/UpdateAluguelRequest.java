@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateAluguelRequest {
+
+    /* Classe para auxiliar na atualização do aluguel */
+    
     private LocalDate dataLocacao;
     private LocalDate dataDevolucao;
     private Long locatario_id;

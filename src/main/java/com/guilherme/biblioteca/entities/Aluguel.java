@@ -12,30 +12,32 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "alugueis")
-@Entity
+@AllArgsConstructor       // Criar getters e setters automaticamente
+@Table(name = "alugueis") // Criação de tabela SQL
+@Entity                   // Declaração de entidade
 public class Aluguel {
+    
+    // ID para verificações
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    // Data de aluguel, com padrao "dia/mês/ano"
     @JsonFormat(pattern = "dd-MM-YYYY")
     private LocalDate dataLocacao;
 
+    // Data de devolução, com padrao "dia/mês/ano"
     @JsonFormat(pattern = "dd-MM-YYYY")
     private LocalDate dataDevolucao;
 
+    // Relacionamento muitos para um, muitos alugeis para um locatario
     @ManyToOne
     @JoinColumn(name = "locatario_id")
     @JsonIgnoreProperties("alugueis")
-    private Locatario locatario;
+    private Locatario locatario;      
     
+    // Relacionamento um para muitos, um aluguel pode ter muitos livros
     @OneToMany(mappedBy = "aluguel", orphanRemoval = true, cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("aluguel")
     private List<Livro> livros;
-
-    public void delLivro(final Aluguel aluguel){
-        this.livros.clear();
-    }
 }

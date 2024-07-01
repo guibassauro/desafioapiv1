@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateLivroRequest {
+
+    /* Classe para auxiliar na atualização do livro */
+
     String titulo;
     String isbn;
     String anoPublicacao;

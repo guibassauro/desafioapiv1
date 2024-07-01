@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateAluguelRequest {
+
+    /* Classe para auxiliar na criação do aluguel */
+    
     private LocalDate dataLocacao;
     private LocalDate dataDevolucao;
     private Long locatario_id;

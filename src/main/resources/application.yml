@@ -6,4 +6,4 @@ spring:
     password: "BaldoSucks2022"
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update

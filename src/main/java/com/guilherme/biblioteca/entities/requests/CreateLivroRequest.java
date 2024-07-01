@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateLivroRequest {
+    
+    /* Classe para auxiliar na criação do livro */
+
     String titulo;
     String isbn;
     String anoPublicacao;
