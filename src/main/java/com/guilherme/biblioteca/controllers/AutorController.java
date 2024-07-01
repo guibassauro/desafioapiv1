@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.guilherme.biblioteca.entities.Autor;
@@ -45,7 +46,7 @@ public class AutorController {
     @GetMapping("/{nome}")
     public ResponseEntity<Object> listAutorByName(
         // Recebe String de nome do autor
-        @PathVariable String nome
+        @RequestParam String nome
     ) {
         // Verifica se o autor existe através de uma função de autoresRepository
         Autor autorExiste = autorRepository.findByNome(nome);
